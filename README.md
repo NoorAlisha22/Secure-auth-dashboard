@@ -1,1 +1,2 @@
-# Pre-sample-repo
+# This is a modern student dashboard built with a layered card design.
+# It features a searchable and sortable table of users,integrated filters by department,semester,and a clean scrollable interface.
