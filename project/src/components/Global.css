@@ -146,10 +146,6 @@ a {
 a:hover {
   text-decoration: underline;
 }
-
-
-
-  
 /* Table styling */
 table {
   width: 100%;
@@ -162,8 +158,6 @@ th, td {
   padding: 10px;
   text-align: center;
 }
-
-
 span {
   display: none;
 }
