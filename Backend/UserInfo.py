@@ -6,29 +6,33 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5174", "http://127.0.0.1:5174", "http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=[
+        "http://localhost:5174",
+        "http://127.0.0.1:5174",
+        "http://localhost:5173",
+        "http://127.0.0.1:5173"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 @app.post("/select")
 def retrieve_data(
     departmentFilter: str = Query(None),
     semesterFilter: str = Query(None),
     SearchData: str = Query(None),
-    sortby: str= Query("Sno"),
-    sortorder: str= Query("ASC")
+    sortby: str = Query("Sno"),
+    sortorder: str = Query("ASC")
 ):
-   # Database connection
-   mydb = mysql.connector.connect(
-     host="sql12.freesqldatabase.com",
-     user="sql12785742",
-     password="xZrFFriYiV",
-     database="sql12785742",
-     port=3306
- )
+    # Database connection
+    mydb = mysql.connector.connect(
+        host="sql12.freesqldatabase.com",
+        user="sql12785742",
+        password="xZrFFriYiV",
+        database="sql12785742",
+        port=3306
+    )
     mycursor = mydb.cursor()
 
     query = "SELECT Sno, Username, Password, Department, Semester, CGPA FROM AuthTable"
@@ -37,11 +41,11 @@ def retrieve_data(
 
     if SearchData:
         search_condition = """
-               (Username LIKE %s OR
-                Department LIKE %s OR
-                CGPA LIKE %s OR
-                SNo LIKE %s)
-           """
+            (Username LIKE %s OR
+             Department LIKE %s OR
+             CGPA LIKE %s OR
+             SNo LIKE %s)
+        """
         conditions.append(search_condition)
         wildcard = f"%{SearchData}%"
         params.extend([wildcard, wildcard, wildcard, wildcard])
@@ -49,33 +53,37 @@ def retrieve_data(
     if departmentFilter:
         conditions.append("Department = %s")
         params.append(departmentFilter)
+
     if semesterFilter:
         conditions.append("Semester = %s")
         params.append(semesterFilter)
 
-
     if conditions:
         query += " WHERE " + " AND ".join(conditions)
 
-
-    allowed_sort_col=["Sno","Username","Password","Department","Semester","CGPA"]
-    allowed_sort_orders=["ASC","DESC"]
+    allowed_sort_col = ["Sno", "Username", "Password", "Department", "Semester", "CGPA"]
+    allowed_sort_orders = ["ASC", "DESC"]
 
     if sortby in allowed_sort_col and sortorder in allowed_sort_orders:
-        query+=f" order by {sortby} {sortorder}"
+        query += f" ORDER BY {sortby} {sortorder}"
     else:
-        query+=f"order by Sno ASC"
-
+        query += " ORDER BY Sno ASC"
 
     mycursor.execute(query, params)
     myresult = mycursor.fetchall()
 
-
     result_list = []
     for i, j, k, l, m, n in myresult:
-        result_list.append({"Sno": i, "Username": j, "Password": k, "Department": l, "Semester": m, "CGPA": n})
+        result_list.append({
+            "Sno": i,
+            "Username": j,
+            "Password": k,
+            "Department": l,
+            "Semester": m,
+            "CGPA": n
+        })
 
     mycursor.close()
     mydb.close()
 
-    return {"users":result_list}
+    return {"users": result_list}
