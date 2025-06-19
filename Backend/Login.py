@@ -19,8 +19,9 @@ app.add_middleware(
 mydb = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="",
-    database="info"
+    password="root",
+    database="info",
+    port=3306
 )
 
 # Request model
@@ -47,9 +48,10 @@ def ValidateFunc(credentials: HTTPBasicCredentials = Depends(security)):
     result = mycursor.fetchone()
     mycursor.close()
 
-    if result and result[0] == credentials.password:
+    if result and result[0].strip() == credentials.password.strip():
         return {"status": "Success", "message": "Login successful"}
-    raise HTTPException(status_code=400, detail="Invalid Username or Password")
+    else:
+        return {"status": "Failure", "message": "Invalid username or password"}
 
 @app.get("/AuthTable")
 def func():
