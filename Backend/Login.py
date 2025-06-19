@@ -59,6 +59,7 @@ def func():
     mycursor.execute("SELECT Sno,Username, Password,Department,Semester,CGPA FROM AuthTable;")
     myresult = mycursor.fetchall()
     mycursor.close()
+    mydb.commit()
     return {"users":myresult}
 
 
