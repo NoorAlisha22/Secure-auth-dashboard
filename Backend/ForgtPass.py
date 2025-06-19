@@ -7,9 +7,9 @@ from fastapi.middleware.cors import CORSMiddleware
 app=FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Or specify your frontend URL like ["http://localhost:3000"]
+    allow_origins=["*"], 
     allow_credentials=True,
-    allow_methods=["*"],  # Allow POST, GET, OPTIONS, etc.
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 
@@ -18,8 +18,9 @@ security=HTTPBasic()
 mydb=mysql.connector.connect(
     host="localhost",
     user="root",
-    password="",
-    database="info"
+    password="root",
+    database="info",
+    port=3306
 )
 class Item(BaseModel):
    Username:str
