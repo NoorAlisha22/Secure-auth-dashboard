@@ -14,11 +14,11 @@ const Login = () => {
     try {
    
       const response = await axios.post(
-        "http://127.0.0.1:8000/Validate",
-        {
-          Username: username, 
-          Password: password,
-        },
+        "http://127.0.0.1:8000/Validate",null
+        // {
+        //   Username: username, 
+        //   Password: password,
+        // },
         {
           auth: {
             username: username, 
