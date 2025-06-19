@@ -21,13 +21,14 @@ def retrieve_data(
     sortby: str= Query("Sno"),
     sortorder: str= Query("ASC")
 ):
-    mydb = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="root",
-        database="info",
-        port=3306
-    )
+   # Database connection
+   mydb = mysql.connector.connect(
+     host="sql12.freesqldatabase.com",
+     user="sql12785742",
+     password="xZrFFriYiV",
+     database="sql12785742",
+     port=3306
+ )
     mycursor = mydb.cursor()
 
     query = "SELECT Sno, Username, Password, Department, Semester, CGPA FROM AuthTable"
