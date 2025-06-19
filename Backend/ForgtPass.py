@@ -15,11 +15,12 @@ app.add_middleware(
 
 
 security=HTTPBasic()
-mydb=mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="root",
-    database="info",
+# Database connection
+mydb = mysql.connector.connect(
+    host="sql12.freesqldatabase.com",
+    user="sql12785742",
+    password="xZrFFriYiV",
+    database="sql12785742",
     port=3306
 )
 class Item(BaseModel):
