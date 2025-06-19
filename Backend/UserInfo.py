@@ -24,8 +24,9 @@ def retrieve_data(
     mydb = mysql.connector.connect(
         host="localhost",
         user="root",
-        password="",
-        database="info"
+        password="root",
+        database="info",
+        port=3306
     )
     mycursor = mydb.cursor()
 
