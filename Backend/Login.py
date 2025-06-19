@@ -17,10 +17,10 @@ app.add_middleware(
 
 # Database connection
 mydb = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="root",
-    database="info",
+    host="sql12.freesqldatabase.com",
+    user="sql12785742",
+    password="xZrFFriYiV",
+    database="sql12785742",
     port=3306
 )
 
