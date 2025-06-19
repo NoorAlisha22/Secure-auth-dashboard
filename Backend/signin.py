@@ -50,8 +50,8 @@ def basic_auth(obj:Item,credentials: HTTPBasicCredentials = Depends(security)):
 async def insert(obj: Item, credentials: HTTPBasicCredentials = Depends(basic_auth)):
     mycursor = mydb.cursor()
     mycursor.execute("INSERT INTO AuthTable (Username, Password, Name, Department, Semester, CGPA) VALUES (%s, %s,%s,%s,%s,%s)", (obj.Username, obj.Password, obj.Name,obj.Department,obj.Semester,obj.CGPA))
-    mydb.commit()
     mycursor.close()
+    mydb.commit()
     return {
         "status": "Success",
         "msg": "successfully inserted",
